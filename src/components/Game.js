@@ -18,6 +18,8 @@ export default class Game extends React.Component {
         ' ', ' ', ' '
       ],
     }
+
+    this.props.updateScores(0);
   }
 
   toggleSymbol() {
