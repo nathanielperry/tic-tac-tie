@@ -26,8 +26,8 @@ export default class Grid extends React.Component {
 
     renderRow(n) {
         return (
-            <tr>
-                {this.props.grid.slice(n*3, n*3+3).map((cell, i) => <td onClick={(e) => this.props.handleClick(n*3+i)}>{cell}</td>)}
+            <tr key={`row${n}`} >
+                {this.props.grid.slice(n*3, n*3+3).map((cell, i) => <td key={i} onClick={(e) => this.props.handleClick(n*3+i)}>{cell}</td>)}
             </tr>
         );
     }
