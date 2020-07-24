@@ -11,8 +11,7 @@ export default class Game extends React.Component {
     
     this.state = {
       nextToPlay: 'X',
-      endTime: Date.now() + 1000 * 1, //1 Minute
-      score: 0,
+      endTime: Date.now() + 1000 * 60, //1 Minute
       grid: [
         ' ', ' ', ' ',
         ' ', ' ', ' ',
@@ -35,17 +34,19 @@ export default class Game extends React.Component {
     });
   }
 
+  addToScore(num) {
+    const newScore = this.props.score + num;
+    this.props.updateScores(newScore);
+  }
+
   handleWin() {
     this.addTime(-5);
     this.resetGrid();
   }
 
   handleTie() {
-    const newScore = this.state.score + 1;
     this.addTime(5);
-    this.setState({
-      score: newScore
-    });
+    this.addToScore(1);
     this.resetGrid();
   }
 
@@ -90,7 +91,7 @@ export default class Game extends React.Component {
   resetGrid() {
     if (this.props.nextToPlay === 'O') this.props.toggleSymbol();
 
-    const newGrid = this.getSeededGrid(this.state.score);
+    const newGrid = this.getSeededGrid(this.props.score);
 
     this.setState({
         grid: newGrid
@@ -127,7 +128,7 @@ export default class Game extends React.Component {
     return (
       <div className="Game">
         <Timer
-          onTimeUp={() => console.log('time up!')}
+          onTimeUp={() => this.props.changeView('end')}
           endTime={this.state.endTime}
         />
         <Grid 
@@ -136,7 +137,7 @@ export default class Game extends React.Component {
           handleClick={this.handleClick.bind(this)}
         />
         <NextToPlay symbol={this.state.nextToPlay} />
-        <Score score={this.state.score} />
+        <Score score={this.props.score} />
       </div>
     );
   }
