@@ -11,7 +11,7 @@ export default class Game extends React.Component {
     
     this.state = {
       nextToPlay: 'X',
-      endTime: Date.now() + 1000 * 60, //1 Minute
+      endTime: Date.now() + 1000 * 5, //1 Minute
       grid: [
         ' ', ' ', ' ',
         ' ', ' ', ' ',

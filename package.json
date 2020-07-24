@@ -1,6 +1,6 @@
 {
-  "name": "1-tic-tac-tie",
-  "version": "0.2.0",
+  "name": "tic-tac-tie",
+  "version": "0.2.1",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",

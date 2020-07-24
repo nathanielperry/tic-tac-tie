@@ -20,8 +20,9 @@ export default class App extends React.Component {
     }
 
     updateScores(score) {
+        const highscore = this.state.highscore < score ? score : this.state.highscore;
         this.setState({
-            highscore: this.state.highscore < score ? this.state.highscore : score,
+            highscore: highscore,
             lastScore: score
         });
     }
@@ -34,7 +35,7 @@ export default class App extends React.Component {
                         changeView={this.changeView.bind(this)}
                     /> 
                 )
-            case 'game': 
+            case 'game':
                 return (
                     <Game 
                         updateScores={this.updateScores.bind(this)}
