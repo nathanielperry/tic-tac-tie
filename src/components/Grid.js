@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default class Grid extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         //Add keyboard controls
         window.addEventListener('keydown', this.handleKeyPress.bind(this));
     }
