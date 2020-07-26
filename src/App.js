@@ -1,4 +1,6 @@
 import React from 'react';
+import 'normalize.css';
+import './App.css';
 import Game from './components/Game';
 import Start from './components/Start';
 import End from './components/End';
@@ -61,9 +63,14 @@ export default class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <p>Highscore: {this.state.highscore}</p>
-                <p>Score: {this.state.lastScore}</p>
-                {this.renderView(this.state.view)}
+                <header className="app-header">
+                    <h1 className="app-title">Tic Tac Tie</h1>
+                </header>
+                <div className="app-body">
+                    <p>Highscore: {this.state.highscore}</p>
+                    <p>Score: {this.state.lastScore}</p>
+                    {this.renderView(this.state.view)}
+                </div>
             </div>
         )
     }

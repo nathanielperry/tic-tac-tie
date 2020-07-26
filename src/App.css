@@ -1,0 +1,83 @@
+/* --deep-ocean: hsla(197, 93%, 29%, 1);
+--shallow-ocean: hsla(193, 100%, 68%, 1);
+--beach: hsla(37, 96%, 61%, 1);
+--wet-sand-1: hsla(320, 10%, 18%, 1);
+--wet-sand-2: hsla(13, 26%, 36%, 1); */
+
+body {
+  background-color: hsla(37, 96%, 61%, 1);
+}
+
+.app-header {
+  padding: 30px 20px;
+}
+
+.app-title {
+  font-size: 4rem;
+  padding: 0;
+  margin: 0;
+}
+
+.app-body {
+  width: 800px;
+  margin: auto;
+  font-size: 2rem;
+}
+
+.Game {
+  position: relative;
+}
+
+.next-to-play {
+  position: absolute;
+  top: 6rem;
+  width: 100%;
+  font-size: 300px;
+  line-height: 300px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+  z-index: -1;
+  color: hsla(13, 26%, 36%, 1);
+}
+
+.timer {
+  margin: 0 auto;
+  height: 6rem;
+  padding: 0;
+  text-align: center;
+  font-size: 5rem;
+  line-height: 5rem;
+}
+
+
+.grid {
+  margin: 0 auto;
+  width: 30rem;
+}
+
+table {
+  border-collapse: collapse;
+  overflow: hidden;
+}
+
+td {
+  width: 100px;
+  height: 100px;
+  border-right: 0.4rem solid hsla(320, 10%, 18%, 1);
+  border-bottom: 0.4rem solid hsla(320, 10%, 18%, 1);
+  font-size: 8rem;
+  line-height: 8rem;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+td:nth-child(3) {
+  border-right: none;
+}
+
+tr:nth-child(3) td {
+  border-bottom: none;
+}

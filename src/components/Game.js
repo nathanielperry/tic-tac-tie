@@ -3,7 +3,6 @@ import Grid from './Grid';
 import NextToPlay from './NextToPlay';
 import Timer from './Timer';
 import Score from './Score';
-import './Game.css';
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -11,7 +10,7 @@ export default class Game extends React.Component {
     
     this.state = {
       nextToPlay: 'X',
-      endTime: Date.now() + 1000 * 5, //1 Minute
+      endTime: Date.now() + 1000 * 6000, //1 Minute
       grid: [
         ' ', ' ', ' ',
         ' ', ' ', ' ',
