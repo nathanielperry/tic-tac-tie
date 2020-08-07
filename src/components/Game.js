@@ -2,7 +2,6 @@ import React from 'react';
 import Grid from './Grid';
 import NextToPlay from './NextToPlay';
 import Timer from './Timer';
-import Score from './Score';
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -138,7 +137,6 @@ export default class Game extends React.Component {
           handleClick={this.handleClick.bind(this)}
         />
         <NextToPlay symbol={this.state.nextToPlay} />
-        <Score score={this.props.score} />
       </div>
     );
   }

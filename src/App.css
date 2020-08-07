@@ -6,34 +6,64 @@
 
 body {
   background-color: hsla(37, 96%, 61%, 1);
+  font-family: 'Amatic SC', cursive;
 }
 
 .app-header {
   padding: 30px 20px;
+  background: hsla(197, 93%, 29%, 1);
 }
 
 .app-title {
-  font-size: 4rem;
+  font-size: 8rem;
+  color: hsla(193, 100%, 68%, 1);
   padding: 0;
   margin: 0;
+}
+
+.app-title a {
+  text-decoration: none;
+  color: hsla(193, 100%, 68%, 1);
 }
 
 .app-body {
   width: 800px;
   margin: auto;
-  font-size: 2rem;
+  font-size: 4rem;
+  display: grid;
+  grid-template-columns: 1fr 70%;
+}
+
+.score-bar {
+  padding-top: 2rem;
+}
+
+.score-bar p {
+  margin: 1rem 0;
+}
+
+.start p {
+  margin: 0 0 2rem;
+}
+
+.how-to-header {
+  font-size: 3.2rem;
+  margin: 5rem 0 2rem;
+  border-bottom: 1px solid black;
 }
 
 .Game {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .next-to-play {
   position: absolute;
-  top: 6rem;
+  top: 9rem;
   width: 100%;
-  font-size: 300px;
-  line-height: 300px;
+  font-size: 39rem;
+  line-height: 39rem;
   text-align: center;
   margin: 0 auto;
   padding: 0;
@@ -42,32 +72,33 @@ body {
 }
 
 .timer {
-  margin: 0 auto;
-  height: 6rem;
-  padding: 0;
   text-align: center;
-  font-size: 5rem;
-  line-height: 5rem;
+  font-size: 8rem;
 }
 
+.timer p {
+  margin: 0 0 1rem;
+}
 
 .grid {
   margin: 0 auto;
-  width: 30rem;
+  /* width: 100%; */
 }
 
 table {
+  height: 100%;
   border-collapse: collapse;
   overflow: hidden;
+  transform: rotate(6deg);
 }
 
 td {
-  width: 100px;
-  height: 100px;
+  height: 13rem;
+  width: 13rem;
   border-right: 0.4rem solid hsla(320, 10%, 18%, 1);
   border-bottom: 0.4rem solid hsla(320, 10%, 18%, 1);
-  font-size: 8rem;
-  line-height: 8rem;
+  font-size: 13rem;
+  line-height: 13rem;
   text-align: center;
   padding: 0;
   margin: 0;
@@ -80,4 +111,34 @@ td:nth-child(3) {
 
 tr:nth-child(3) td {
   border-bottom: none;
+}
+
+@media (max-width: 800px) {
+
+  .app-body {
+    width: 100%;
+    margin: auto;
+    padding: 0 1rem;
+    font-size: 4rem;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .score-bar {
+    margin-bottom: 1rem;
+  }
+
+  .score-bar p {
+    display: inline-block;
+    margin: 0;
+  }
+  
+  .score-bar__score {
+    padding-left: 3rem;
+  }
+
+  .timer {
+    text-align: left;
+  }
+
 }

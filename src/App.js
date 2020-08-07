@@ -64,12 +64,16 @@ export default class App extends React.Component {
         return (
             <div className="App">
                 <header className="app-header">
-                    <h1 className="app-title">Tic Tac Tie</h1>
+                    <h1 className="app-title"><a href="/">Tic Tac Tie</a></h1>
                 </header>
                 <div className="app-body">
-                    <p>Highscore: {this.state.highscore}</p>
-                    <p>Score: {this.state.lastScore}</p>
-                    {this.renderView(this.state.view)}
+                    <div className="score-bar">
+                        <p className="score-bar__highscore">Highscore: {this.state.highscore}</p>
+                        <p className="score-bar__score">Score: {this.state.lastScore}</p>
+                    </div>
+                    <div className="main-view">
+                        {this.renderView(this.state.view)}
+                    </div>
                 </div>
             </div>
         )
