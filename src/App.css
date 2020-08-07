@@ -46,6 +46,10 @@ body {
   margin: 0 0 2rem;
 }
 
+.game-over {
+  margin: 2rem 0 0;
+}
+
 .how-to-header {
   font-size: 3.2rem;
   margin: 5rem 0 2rem;

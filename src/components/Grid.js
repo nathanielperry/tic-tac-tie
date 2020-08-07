@@ -40,7 +40,6 @@ export default class Grid extends React.Component {
         ];
     }
 
-    //TODO: Add keys to repeated elements
     render() {
         return (
             <div className="grid-container">

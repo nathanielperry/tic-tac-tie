@@ -3,7 +3,6 @@ import 'normalize.css';
 import './App.css';
 import Game from './components/Game';
 import Start from './components/Start';
-import End from './components/End';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -47,9 +46,10 @@ export default class App extends React.Component {
                 )
             case 'end':
                 return (
-                    <End 
+                    <Start 
                         changeView={this.changeView.bind(this)}
-                    />
+                        played={true}
+                    /> 
                 )
             default:
                 return (
