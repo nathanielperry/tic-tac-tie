@@ -27,7 +27,19 @@ export default class Grid extends React.Component {
     renderRow(n) {
         return (
             <tr key={`row${n}`} >
-                {this.props.grid.slice(n*3, n*3+3).map((cell, i) => <td key={i} onClick={(e) => this.props.handleClick(n*3+i)}>{cell}</td>)}
+                {this.props.grid.slice(n*3, n*3+3).map((cell, i) => {
+                    const fillState = cell !== ' ' ? 'filled-cell' : 'empty-cell';
+                    const winState = this.props.winningLine.indexOf(n*3+i) >= 0 ? 'winning-line ' : '';
+
+                    return (
+                        <td key={i} onClick={(e) => this.props.handleClick(n*3+i)}>
+                            <span
+                                className={`${fillState} ${winState}`}>
+                                {cell}
+                            </span>
+                        </td>
+                    )
+                })}
             </tr>
         );
     }
@@ -42,7 +54,7 @@ export default class Grid extends React.Component {
 
     render() {
         return (
-            <div className="grid-container">
+            <div className="grid-container popin">
                 <table className="grid">
                     <tbody>
                         {this.renderTable()}

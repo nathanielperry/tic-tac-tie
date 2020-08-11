@@ -1,7 +1,12 @@
 import React from 'react';
 import Grid from './Grid';
 import NextToPlay from './NextToPlay';
+import TimeIndicator from './TimeIndicator';
 import Timer from './Timer';
+
+import { uniqueId } from 'underscore';
+
+const WINTIMEOUT = 3000;
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -9,12 +14,15 @@ export default class Game extends React.Component {
     
     this.state = {
       nextToPlay: 'X',
-      endTime: Date.now() + 1000 * 15, //15 seconds 
+      endTime: Date.now() + 1000 * 2, //15 seconds
       grid: [
         ' ', ' ', ' ',
         ' ', ' ', ' ',
         ' ', ' ', ' '
       ],
+      bonusTime: [],
+      timeout: false,
+      winningLine: [],
     }
 
     this.props.updateScores(0);
@@ -30,6 +38,7 @@ export default class Game extends React.Component {
   addTime(seconds) {
     const newEndTime = this.state.endTime + seconds * 1000;
     this.setState({
+      bonusTime: [ ...this.state.bonusTime, { id: uniqueId('time-bonus-'), seconds } ],
       endTime: newEndTime
     });
   }
@@ -39,9 +48,18 @@ export default class Game extends React.Component {
     this.props.updateScores(newScore);
   }
 
-  handleWin() {
-    this.addTime(-5);
-    this.resetGrid();
+  handleWin(winningLine) {
+    this.setState({
+      timeout: true,
+      winningLine
+    });
+    setTimeout(() => {
+      this.setState({
+        timeout: false,
+        winningLine: []
+      });
+      this.resetGrid();
+    }, WINTIMEOUT);
   }
 
   handleTie() {
@@ -50,15 +68,24 @@ export default class Game extends React.Component {
     this.resetGrid();
   }
 
+  handleGameOver() {
+    this.setState({ timeout: true });
+    this.props.changeView('start', 1000);
+  }
+
   handleClick(cell) {
+    if (this.state.timeout) return false;
+
     const newGrid = this.state.grid.slice(0);
     if (newGrid[cell] === ' ') {
         newGrid[cell] = this.state.nextToPlay;
         this.setState({
             grid: newGrid
         });
-        if (this.isGameWon(newGrid)) {
-            this.handleWin();
+
+        const winningLine = this.isGameWon(newGrid);
+        if (winningLine) {
+            this.handleWin(winningLine);
         } else if (!newGrid.some(cell => cell === ' ')) {
             this.handleTie();
         } else {
@@ -68,6 +95,7 @@ export default class Game extends React.Component {
   }
 
   isGameWon(grid) {
+    let index = 0;
     const matches = [
         //horizontal
         [0, 1, 2],
@@ -82,10 +110,17 @@ export default class Game extends React.Component {
         [2, 4, 6],
     ];
 
-    return matches.some(cells => {
-        const cellValues = cells.map(n => grid[n]); 
-        return cellValues[0] !== ' ' && cellValues[0] === cellValues[1] && cellValues[0] === cellValues[2];
+    const gameIsWon =  matches.some((cells, i) => {
+        const cellValues = cells.map(n => grid[n]);
+        if (cellValues[0] !== ' ' && cellValues[0] === cellValues[1] && cellValues[0] === cellValues[2]) {
+          index = i;
+          return true;
+        }
+        return false;
     });
+
+    if (gameIsWon) return matches[index];
+    return false;
   }
 
   resetGrid() {
@@ -112,7 +147,7 @@ export default class Game extends React.Component {
       (_, i) => {
         return {
           symbol: i % 2 === 0 ? 'X' : 'O',
-          position: Math.floor(Math.random() * 8), 
+          position: Math.floor(Math.random() * 8),
         }
       }
     )
@@ -124,17 +159,43 @@ export default class Game extends React.Component {
     return newGrid;
   }
 
+  renderBonusTimes() {
+    return this.state.bonusTime.map(s => {
+      return (
+        <TimeIndicator
+          seconds={s.seconds}
+          key={s.id} 
+          removeBonus={() => this.removeBonus(s.id)}
+        />
+      )
+    });
+  }
+
+  removeBonus(id) {
+    const newBonusTime = this.state.bonusTime.filter((arr, item) => {
+      return item.id === id;
+    }, []);
+
+    console.log(newBonusTime);
+
+    this.setState({
+      bonusTime: newBonusTime
+    });
+  }
+
   render() {
     return (
       <div className="Game">
         <Timer
-          onTimeUp={() => this.props.changeView('end')}
+          onTimeUp={this.handleGameOver.bind(this)}
           endTime={this.state.endTime}
         />
+        {this.renderBonusTimes()}
         <Grid 
           grid={this.state.grid}
           toggleSymbol={() => this.toggleSymbol()}
           handleClick={this.handleClick.bind(this)}
+          winningLine={this.state.winningLine}
         />
         <NextToPlay symbol={this.state.nextToPlay} />
       </div>

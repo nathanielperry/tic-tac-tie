@@ -11,12 +11,31 @@ export default class App extends React.Component {
             view: 'start',
             highscore: 0,
             lastScore: 0,
+            wave: false,
         }
     }
 
-    changeView(newView) {
+    changeView(newView, timing) {
         this.setState({
-            view: newView
+            wave: true
+        });
+
+        setTimeout(() => {
+            this.setState({view: ''});
+        }, timing/2);
+
+        setTimeout(() => {
+            this.setState({
+                wave: false,
+                view: newView
+            });
+        }, 4000);
+    }
+    
+    oceanSwipe(timing) {
+        return new Promise((res, rej) => {
+
+            
         });
     }
 
@@ -44,27 +63,20 @@ export default class App extends React.Component {
                         score={this.state.lastScore}
                     />
                 )
-            case 'end':
-                return (
-                    <Start 
-                        changeView={this.changeView.bind(this)}
-                        played={true}
-                    /> 
-                )
             default:
                 return (
-                    <Start 
-                        changeView={this.changeView.bind(this)}
-                    /> 
+                    <div></div>
                 )
         }
     }
 
     render() {
+        const waveState = this.state.wave ? 'wave' : '';
+
         return (
             <div className="App">
-                <header className="app-header">
-                    <h1 className="app-title"><a href="/">Tic Tac Tie</a></h1>
+                <header className={`app-header ${waveState}`}>
+                    <h1 className={`app-title`}><a href="/">Tic Tac Tie</a></h1>
                 </header>
                 <div className="app-body">
                     <div className="score-bar">

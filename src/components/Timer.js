@@ -37,7 +37,7 @@ export default class Timer extends React.Component {
 
     render() {
         return (
-            <div className="timer">
+            <div className="timer popin">
                 <p>
                     {dfns.format(this.state.timeRemaining, `mm:ss:SS`)}
                 </p>
