@@ -12,6 +12,7 @@ export default class App extends React.Component {
             highscore: 0,
             lastScore: 0,
             wave: false,
+            played: false,
         }
     }
 
@@ -22,21 +23,15 @@ export default class App extends React.Component {
 
         setTimeout(() => {
             this.setState({view: ''});
-        }, timing/2);
+        }, 2000);
 
         setTimeout(() => {
             this.setState({
                 wave: false,
-                view: newView
+                view: newView,
+                played: true,
             });
         }, 4000);
-    }
-    
-    oceanSwipe(timing) {
-        return new Promise((res, rej) => {
-
-            
-        });
     }
 
     updateScores(score) {
@@ -53,6 +48,7 @@ export default class App extends React.Component {
                 return (
                     <Start 
                         changeView={this.changeView.bind(this)}
+                        played={this.state.played}
                     /> 
                 )
             case 'game':
@@ -80,8 +76,12 @@ export default class App extends React.Component {
                 </header>
                 <div className="app-body">
                     <div className="score-bar">
-                        <p className="score-bar__highscore">Highscore: {this.state.highscore}</p>
-                        <p className="score-bar__score">Score: {this.state.lastScore}</p>
+                        { this.state.view === 'game' &&
+                            <p className="score-bar__score">Score: {this.state.lastScore}</p>
+                        }
+                        { this.state.highscore > 0 &&
+                            <p className="score-bar__highscore">Highscore: {this.state.highscore}</p>
+                        }
                     </div>
                     <div className="main-view">
                         {this.renderView(this.state.view)}
